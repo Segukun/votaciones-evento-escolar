@@ -1,8 +1,8 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const cors = require('cors');
-const express = require('express');
-const connectDB = require('./config/db');
+const cors = require("cors");
+const express = require("express");
+const connectDB = require("./config/db");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,11 +10,14 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const categoriasRoutes = require('./routes/categoriasRoutes');
-app.use('/api/categorias', categoriasRoutes);
+const categoriasRoutes = require("./routes/categoriasRoutes");
+app.use("/api/categorias", categoriasRoutes);
 
-app.get('/api/health', (req, res) => {
-  res.json({ mensaje: 'El servidor funciona correctamente.' });
+const gruposRoutes = require("./routes/gruposRoutes");
+app.use("/api/grupos", gruposRoutes);
+
+app.get("/api/health", (req, res) => {
+  res.json({ mensaje: "El servidor funciona correctamente." });
 });
 
 async function iniciarServidor() {
@@ -24,7 +27,7 @@ async function iniciarServidor() {
       console.log(`Servidor disponible en http://localhost:${port}`);
     });
   } catch (error) {
-    console.error('No se pudo iniciar el servidor:', error.message);
+    console.error("No se pudo iniciar el servidor:", error.message);
     process.exit(1);
   }
 }
