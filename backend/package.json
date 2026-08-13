@@ -1,0 +1,27 @@
+{
+  "name": "votaciones-evento-escolar-backend",
+  "version": "1.0.0",
+  "description": "API para el sistema de votaciones del evento escolar.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "votaciones",
+    "evento-escolar",
+    "express",
+    "mongodb"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
+
