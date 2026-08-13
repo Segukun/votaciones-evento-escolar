@@ -10,6 +10,9 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+const categoriasRoutes = require('./routes/categoriasRoutes');
+app.use('/api/categorias', categoriasRoutes);
+
 app.get('/api/health', (req, res) => {
   res.json({ mensaje: 'El servidor funciona correctamente.' });
 });
