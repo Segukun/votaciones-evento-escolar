@@ -1,0 +1,87 @@
+/* Contenedor principal del banner y la lista */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Banner del evento */
+.event-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.event-tag {
+  color: #f97316;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.event-title {
+  color: #0f172a;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0 0 20px 0;
+}
+
+/* Caja de aviso */
+.alert-box {
+  background-color: #fff7ed;
+  border: 1px solid #ffedd5;
+  border-radius: 16px;
+  padding: 14px 20px;
+  max-width: 580px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.alert-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #f97316;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.alert-text {
+  color: #0f172a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: left;
+}
+
+/* Grilla/Lista de Tarjetas */
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 420px;
+}
+
+@media (max-width: 550px) {
+  .event-title {
+    font-size: 1.5rem;
+  }
+}
