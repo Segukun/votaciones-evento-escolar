@@ -5,7 +5,7 @@ import './App.css'
 
 function App() {
   return (
-    <div style={{ padding: '20px', display: 'flex', justifyContent: 'center' }}>
+    <div >
       <Header />
       <CarList />
     </div>
