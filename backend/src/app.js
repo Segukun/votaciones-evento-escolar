@@ -16,6 +16,9 @@ app.use("/api/categorias", categoriasRoutes);
 const gruposRoutes = require("./routes/gruposRoutes");
 app.use("/api/grupos", gruposRoutes);
 
+const votosRoutes = require("./routes/votosRoutes");
+app.use("/api/votos", votosRoutes);
+
 app.get("/api/health", (req, res) => {
   res.json({ mensaje: "El servidor funciona correctamente." });
 });
@@ -32,6 +35,8 @@ async function iniciarServidor() {
   }
 }
 
-iniciarServidor();
+if (require.main === module) {
+  iniciarServidor();
+}
 
 module.exports = app;
