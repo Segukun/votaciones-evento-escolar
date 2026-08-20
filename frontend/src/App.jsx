@@ -1,3 +1,4 @@
+import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./layout/Header";
 import Footer from "./layout/footer";
 import CategoryProgress from "./layout/categoryProgress";
@@ -15,7 +16,16 @@ export default function App() {
       <Header />
       
       <main className="main-content">
-        <CategoryProgress categories={CATEGORIAS} />
+        <Routes>
+          {/* Al entrar a '/' redirige automáticamente a '/categoria/1' */}
+          <Route path="/" element={<Navigate to="/categoria/1" replace />} />
+          
+          {/* Ruta dinámica para las categorías */}
+          <Route 
+            path="/categoria/:categoryId" 
+            element={<CategoryProgress categories={CATEGORIAS} />} 
+          />
+        </Routes>
       </main>
 
       <Footer />
