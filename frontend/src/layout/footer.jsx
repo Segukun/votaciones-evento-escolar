@@ -9,8 +9,8 @@ function Footer() {
 
         <div className="footer-logo">
           <img
-            src="/img/logo-escuela.png"
-            alt="Logo de la escuela"
+            src="../public/enet_n1_republica_de_mxico_logo.jpg" 
+            alt="Escudo E.E.S.T. Nº 1"
           />
         </div>
 

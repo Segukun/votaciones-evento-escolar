@@ -6,7 +6,7 @@ export default function Header() {
     <header className="header-bar">
       <div className="brand-container">
         <div className="logo-box">
-          <img src="/logo-eest1.png" alt="Escudo E.E.S.T. Nº 1" />
+          <img src="../public/enet_n1_republica_de_mxico_logo.jpg" alt="Escudo E.E.S.T. Nº 1" />
         </div>
         <div className="school-info">
           <span className="school-title">E.E.S.T. Nº 1</span>
