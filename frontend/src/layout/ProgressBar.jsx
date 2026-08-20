@@ -1,4 +1,4 @@
-import "./progressBar.css";
+import "../styles/categoryProgress.css";
 
 export function ProgressBar({ currentStep, totalSteps }) {
   const percentage = Math.round((currentStep / totalSteps) * 100);

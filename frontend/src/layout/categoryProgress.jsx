@@ -2,7 +2,8 @@ import { useState } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { CategoryContent } from "./CategoryContent";
 import { ActionButton } from "./actionButton";
-import "./categoryProgress.css";
+import CarList from "./CarList"; 
+import "../styles/categoryProgress.css"; 
 
 export function CategoryProgress({ categories = [] }) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -27,8 +28,11 @@ export function CategoryProgress({ categories = [] }) {
       {/* 2. Contenido (cambia dinámicamente) */}
       <CategoryContent category={categories[currentStepIndex]} />
 
+      <CarList/>
+
       {/* 3. Botón de siguiente */}
       <ActionButton isLastStep={isLastStep} onClick={handleNext} />
     </main>
   );
 }
+export default CategoryProgress;

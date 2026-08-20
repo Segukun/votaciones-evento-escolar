@@ -8,21 +8,21 @@ const MOCK_CARS = [
     name: 'Súper Trueno EV',
     madeBy: '4to Año Electromecánica',
     description: 'Vehículo aerodinámico impulsado por energía solar. Chasis de fibra de vidrio y alerones ajustables.',
-    image: '/images/super-trueno.jpg'
+    image: './public/descarga.jpg'
   },
   {
     id: 2,
     name: 'Escarabajo Retro',
     madeBy: '5to Año Automotriz',
     description: 'Inspiración clásica con un giro ecológico moderno. Cuerpo pulido de chapa reciclada y llantas de competición.',
-    image: '/images/escarabajo-retro.jpg'
+   image: './public/fondo2.gif'
   },
   {
     id: 3,
     name: 'Flecha de Plata',
     madeBy: '6to Año Técnico',
     description: 'Un tributo moderno a las leyendas del Gran Premio. Estructura tubular ultraligera y cabina futurista.',
-    image: '/images/flecha-plata.jpg'
+    image: './public/descarga.jpg'
   }
 ]
 
