@@ -9,7 +9,7 @@ const grupoSchema = new Schema(
     integrantes: [{ type: String, required: true, trim: true }], //Lista de nombres
     descripcion: { type: String, default: "" }, //Texto breve
     historia: { type: String, default: "" }, //Breve texto
-    imagen: [{ type: String, required: true }], //Link
+    imagen: { type: String, required: true }, //Link
   },
   { timestamps: true },
 );

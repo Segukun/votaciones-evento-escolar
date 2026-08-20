@@ -3,12 +3,15 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const connectDB = require("./config/db");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/img", express.static(path.join(__dirname, "../img"))); //Esto es para que el frontend acceda a la carpeta de el backend
 
 const categoriasRoutes = require("./routes/categoriasRoutes");
 app.use("/api/categorias", categoriasRoutes);
