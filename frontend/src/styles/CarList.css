@@ -1,0 +1,81 @@
+/* Layout general e integración debajo del Header */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  background-color: #f8fafc;
+  min-height: calc(100vh - 70px);
+  box-sizing: border-box;
+}
+
+/* Encabezado del Concurso */
+.event-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.event-tag {
+  color: #ea580c;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.event-title {
+  color: #0f172a;
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin: 0 0 16px 0;
+}
+
+/* Alerta informativa */
+.alert-box {
+  background-color: #fff7ed;
+  border: 1px solid #ffedd5;
+  border-radius: 12px;
+  padding: 12px 18px;
+  max-width: 520px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.alert-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #ea580c;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.alert-text {
+  color: #1e293b;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: left;
+}
+
+/* Contenedor apilado para centrar las tarjetas */
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 440px;
+}
