@@ -1,29 +1,54 @@
+import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./layout/Header";
 import Footer from "./layout/footer";
 import CategoryProgress from "./layout/categoryProgress";
 import "./App.css";
 
-const CATEGORIAS = [
-  { id: 1, title: "Autos Electrónicos", description: "Vota por el mejor diseño ecológico" },
-  { id: 2, title: "Autos Clásicos", description: "Vota por la mejor restauración" },
-  { id: 3, title: "Autos de Competición", description: "Vota por el modelo más aerodinámico" },
-];
+const API_URL = "http://localhost:3000";
 
 export default function App() {
+  const [categorias, setCategorias] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/categorias`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCategorias(data);
+        setCargando(false);
+      })
+      .catch((err) => {
+        console.error("Error al obtener categorias:", err);
+        setCargando(false);
+      });
+  }, []);
+
+  if (cargando) {
+    return <div style={{ textAlign: "center", marginTop: "50px" }}>Cargando datos...</div>;
+  }
+
   return (
     <div className="app-container">
       <Header />
       
       <main className="main-content">
         <Routes>
-          {/* Al entrar a '/' redirige automáticamente a '/categoria/1' */}
-          <Route path="/" element={<Navigate to="/categoria/1" replace />} />
+          {/* Redirige a la primera categoría disponible en la BD */}
+          <Route 
+            path="/" 
+            element={
+              categorias.length > 0 ? (
+                <Navigate to={`/categoria/${categorias[0]._id || categorias[0].id}`} replace />
+              ) : (
+                <p style={{ textAlign: "center" }}>No hay categorías registradas.</p>
+              )
+            } 
+          />
           
-          {/* Ruta dinámica para las categorías */}
           <Route 
             path="/categoria/:categoryId" 
-            element={<CategoryProgress categories={CATEGORIAS} />} 
+            element={<CategoryProgress categories={categorias} />} 
           />
         </Routes>
       </main>

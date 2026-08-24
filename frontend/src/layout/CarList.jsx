@@ -1,42 +1,45 @@
-import React from 'react'
-import Cards from './Cards'
-import '../styles/CarList.css'
+import React, { useEffect, useState } from 'react';
+import Cards from './Cards';
+import '../styles/CarList.css';
 
-const MOCK_CARS = [
-  {
-    id: 1,
-    name: 'Súper Trueno EV',
-    madeBy: '4to Año Electromecánica',
-    description: 'Vehículo aerodinámico impulsado por energía solar. Chasis de fibra de vidrio y alerones ajustables.',
-    image: '/images/super-trueno.jpg'
-  },
-  {
-    id: 2,
-    name: 'Escarabajo Retro',
-    madeBy: '5to Año Automotriz',
-    description: 'Inspiración clásica con un giro ecológico moderno. Cuerpo pulido de chapa reciclada y llantas de competición.',
-    image: '/images/escarabajo-retro.jpg'
-  },
-  {
-    id: 3,
-    name: 'Flecha de Plata',
-    madeBy: '6to Año Técnico',
-    description: 'Un tributo moderno a las leyendas del Gran Premio. Estructura tubular ultraligera y cabina futurista.',
-    image: '/images/flecha-plata.jpg'
-  }
-]
+const API_URL = "http://localhost:3000";
 
-export default function CarList({ selectedCarId, onSelectCar }) {
+export default function CarList({ categoryId }) {
+  const [grupos, setGrupos] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/grupos`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Filtramos por categoría si tu backend devuelve el ID de categoría en cada grupo
+        const filtrados = categoryId 
+          ? data.filter((grupo) => grupo.categoria === categoryId || grupo.categoriaId === categoryId)
+          : data;
+        setGrupos(filtrados);
+      })
+      .catch((err) => console.error("Error al obtener grupos:", err));
+  }, [categoryId]);
+
   return (
-    <div className="cards-grid">
-      {MOCK_CARS.map((car) => (
+    <div className="car-list-grid">
+      {grupos.map((grupo) => (
         <Cards
-          key={car.id}
-          car={car}
-          isSelected={selectedCarId === car.id}
-          onSelect={() => onSelectCar(car.id)}
+          key={grupo._id || grupo.id}
+          car={{
+            id: grupo._id || grupo.id,
+            name: grupo.nombre,
+            madeBy: grupo.integrantes || grupo.realizadoPor || "Grupo",
+            description: grupo.descripcion,
+            // Agrega el puerto backend a la ruta estática de la imagen
+            image: grupo.imagen?.startsWith('http') 
+              ? grupo.imagen 
+              : `${API_URL}${grupo.imagen}`
+          }}
+          isSelected={selectedId === (grupo._id || grupo.id)}
+          onSelect={() => setSelectedId(grupo._id || grupo.id)}
         />
       ))}
     </div>
-  )
+  );
 }
