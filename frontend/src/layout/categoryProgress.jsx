@@ -1,29 +1,38 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { ProgressBar } from "./ProgressBar";
-import { CategoryContent } from "./CategoryContent";
+import { useNavigate, useParams } from "react-router-dom";
 import { ActionButton } from "./actionButton";
 import CarList from "./CarList";
-import "../styles/categoryProgress.css"; 
-import { useEffect , useLayoutEffect } from "react";
+import { CategoryContent } from "./CategoryContent";
+import { ProgressBar } from "./ProgressBar";
+import "../styles/categoryProgress.css";
+import { useEffect, useLayoutEffect } from "react";
+import { useVotacion } from "../hooks/useVotacion";
 
 export function CategoryProgress({ categories = [] }) {
   const { categoryId } = useParams();
   const navigate = useNavigate();
 
-  // Convertimos el ID de la URL a número entero para obtener el índice
-  const currentCategoryIndex = parseInt(categoryId, 10) - 1;
-  const currentCategory = categories[currentCategoryIndex];
+  const currentCategory = categories.find((cat) => cat._id === categoryId);
+  const currentCategoryIndex = categories.findIndex(
+    (cat) => cat._id === categoryId,
+  );
 
-  const [selectedCarId, setSelectedCarId] = useState(null);
+  const {
+    selectedCarId,
+    seleccionarAuto,
+    resetSeleccion,
+    confirmarVoto,
+    enviando,
+    error,
+  } = useVotacion();
 
   const totalSteps = categories.length;
   const currentStep = currentCategoryIndex + 1;
   const isLastStep = currentStep === totalSteps;
 
-useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
     }
   }, []);
 
@@ -31,46 +40,40 @@ useEffect(() => {
     window.scrollTo(0, 0);
   }, [categoryId]);
 
-  
   if (!currentCategory) {
-    return <h2 style={{ textAlign: "center", padding: "40px 0" }}>Categoría no encontrada</h2>;
+    return (
+      <h2 style={{ textAlign: "center", padding: "40px 0" }}>
+        Categoría no encontrada
+      </h2>
+    );
   }
 
-  const handleNext = () => {
-  
+  const handleNext = async () => {
     if (!selectedCarId) return;
+    const ok = await confirmarVoto(categoryId);
+    if (!ok) return; // si falla, no avanza y muestra error
 
-    setSelectedCarId(null); // Resetea la selección para la siguiente categoría
+    resetSeleccion();
 
     if (isLastStep) {
       alert("Votación finalizada con éxito");
-      navigate("/categoria/1"); // O a la ruta que quieras al terminar
+      navigate(`/categoria/${categories[0]._id}`);
       return;
     }
-
-    // Navega a la siguiente categoría actualizando la URL
-    navigate(`/categoria/${currentStep + 1}`);
+    const nextCategory = categories[currentCategoryIndex + 1];
+    navigate(`/categoria/${nextCategory._id}`);
   };
 
   return (
     <main className="voting-container">
-      {/* 1. Barra de progreso */}
       <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
-
-      {/* 2. Contenido de la categoría */}
       <CategoryContent category={currentCategory} />
-
-      {/* 3. Lista de autos */}
-      <CarList 
-        selectedCarId={selectedCarId} 
-        onSelectCar={setSelectedCarId} 
-      />
-
-      {/* 4. Botón deshabilitado si no hay selección */}
-      <ActionButton 
-        isLastStep={isLastStep} 
-        onClick={handleNext} 
-        disabled={!selectedCarId} 
+      <CarList selectedCarId={selectedCarId} onSelectCar={seleccionarAuto} />
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+      <ActionButton
+        isLastStep={isLastStep}
+        onClick={handleNext}
+        disabled={!selectedCarId || enviando}
       />
     </main>
   );
